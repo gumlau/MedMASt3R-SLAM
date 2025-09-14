@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <!-- Primary Meta Tags -->
+  <meta name="title" content="SurgMASt3R-SLAM: Real-Time 3D Reconstruction for Surgical Scenes via LoRA-Fine-Tuned Vision Transformers">
+  <meta name="description" content="Novel pipeline for real-time 3D reconstruction of surgical scenes, leveraging Vision Transformer-based MASt3R model fine-tuned with Low-rank Adaptation (LoRA) on medical datasets.">
+  <meta name="keywords" content="3D Reconstruction, depth estimation, LoRA, surgical scene, medical SLAM, MASt3R, Vision Transformers, ICRA 2025">
+  <meta name="author" content="Anonymous Authors">
+  <meta name="robots" content="index, follow">
+  <meta name="language" content="English">
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="article">
+  <!-- TODO: Replace with your institution or lab name -->
+  <meta property="og:site_name" content="Medical Computer Vision Laboratory">
+  <!-- TODO: Same as paper title above -->
+  <meta property="og:title" content="SurgMASt3R-SLAM: Medical Scene Reconstruction using SLAM">
+  <!-- TODO: Same as description above -->
+  <meta property="og:description" content="Novel 3D surgical scene reconstruction framework using deep learning-based SLAM with MASt3R for stationary medical scenes, achieving global consistency and real-time processing">
+  <!-- TODO: Replace with your actual website URL -->
+  <meta property="og:url" content="#">
+  <!-- TODO: Create a 1200x630px preview image and update path -->
+  <meta property="og:image" content="#">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="SurgMASt3R-SLAM - Research Preview">
+  <meta property="article:published_time" content="2024-01-01T00:00:00.000Z">
+  <meta property="article:author" content="Medical Computer Vision Research Team">
+  <meta property="article:section" content="Research">
+  <meta property="article:tag" content="KEYWORD1">
+  <meta property="article:tag" content="KEYWORD2">
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <!-- TODO: Replace with your lab/institution Twitter handle -->
+  <meta name="twitter:site" content="#">
+  <!-- TODO: Replace with first author's Twitter handle -->
+  <meta name="twitter:creator" content="#">
+  <!-- TODO: Same as paper title above -->
+  <meta name="twitter:title" content="SurgMASt3R-SLAM: Medical Scene Reconstruction using SLAM">
+  <!-- TODO: Same as description above -->
+  <meta name="twitter:description" content="Novel 3D surgical scene reconstruction framework using deep learning-based SLAM with MASt3R for stationary medical scenes, achieving global consistency and real-time processing">
+  <!-- TODO: Same as social preview image above -->
+  <meta name="twitter:image" content="#">
+  <meta name="twitter:image:alt" content="SurgMASt3R-SLAM - Research Preview">
+
+  <!-- Academic/Research Specific -->
+  <meta name="citation_title" content="SurgMASt3R-SLAM: Medical Scene Reconstruction using SLAM">
+  <meta name="citation_author" content="Medical Computer Vision Research Team">
+  <meta name="citation_publication_date" content="2024">
+  <meta name="citation_conference_title" content="ICRA 2024">
+  <meta name="citation_pdf_url" content="#">
+  
+  <!-- Additional SEO -->
+  <meta name="theme-color" content="#2563eb">
+  <meta name="msapplication-TileColor" content="#2563eb">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  
+  <!-- Preconnect for performance -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://ajax.googleapis.com">
+  <link rel="preconnect" href="https://documentcloud.adobe.com">
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+
+
+  <title>SurgMASt3R-SLAM: Surgical Scene Reconstruction using Foundation Model-based SLAM | ICRA 2025</title>
+  
+  <!-- Favicon and App Icons -->
+  <link rel="icon" type="image/x-icon" href="static/images/favicon.ico">
+  <link rel="apple-touch-icon" href="static/images/favicon.ico">
+  
+  <!-- Critical CSS - Load synchronously -->
+  <link rel="stylesheet" href="static/css/bulma.min.css">
+  <link rel="stylesheet" href="static/css/index.css">
+  
+  <!-- Essential CSS -->
+  <link rel="stylesheet" href="static/css/fontawesome.all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  
+  <!-- VGG-T style fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+  
+  <!-- Essential JavaScript -->
+  <script defer src="static/js/fontawesome.all.min.js"></script>
+  <script defer src="static/js/index.js"></script>
+  
+  <!-- Structured Data for Academic Papers -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ScholarlyArticle",
+    "headline": "SurgMASt3R-SLAM: Medical Scene Reconstruction using SLAM",
+    "description": "Novel 3D surgical scene reconstruction framework using deep learning-based SLAM with MASt3R for stationary medical scenes, achieving global consistency and real-time processing",
+    "author": [
+      {
+        "@type": "Person",
+        "name": "Medical Computer Vision Research Team",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "Medical Computer Vision Laboratory"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "Medical Computer Vision Laboratory"
+        }
+      }
+    ],
+    "datePublished": "2024-01-01",
+    "publisher": {
+      "@type": "Organization",
+      "name": "ICRA 2024"
+    },
+    "url": "#",
+    "image": "#",
+    "keywords": ["surgical scene reconstruction", "medical SLAM", "MASt3R", "3D reconstruction", "computer vision", "medical imaging", "depth estimation"],
+    "abstract": "Surgical scene reconstruction serves as a foundational technology for downstream tasks such as intraoperative navigation, augmented reality, surgical environment simulation, immersive education, and robotic surgery automation. We apply deep learning-based SLAM method, MASt3R-SLAM, to static surgical scene reconstruction using MASt3R, a strong 3D perceptron prior for feature extraction and tracking, aligning with loop closure and global optimization components to realize globally consistent poses and dense geometry estimation for long videos.",
+    "citation": "@article{MedMASt3R2024, title={SurgMASt3R-SLAM: Medical Scene Reconstruction using SLAM}, author={Medical Computer Vision Research Team}, journal={ICRA 2024}, year={2024}}",
+    "isAccessibleForFree": true,
+    "license": "https://creativecommons.org/licenses/by/4.0/",
+    "mainEntity": {
+      "@type": "WebPage",
+      "@id": "#"
+    },
+    "about": [
+      {
+        "@type": "Thing",
+        "name": "Medical Computer Vision"
+      },
+      {
+        "@type": "Thing", 
+        "name": "3D Scene Reconstruction"
+      }
+    ]
+  }
+  </script>
+  
+  <!-- Website/Organization Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Medical Computer Vision Laboratory",
+    "url": "#",
+    "logo": "#",
+    "sameAs": [
+      "#",
+      "#"
+    ]
+  }
+  </script>
+</head>
+<body>
+
+
+
+  <main id="main-content">
+  <section class="hero">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
+          <div class="column has-text-centered">
+            <h1 class="title is-4 publication-title" style="font-size: 2rem;">SurgMASt3R-SLAM: Real-Time 3D Reconstruction for Surgical Scenes via LoRA-Fine-Tuned Vision Transformers</h1>
+            <div class="is-size-5 publication-authors">
+              <span class="author-block">
+                <a href="#">Anonymous Authors</a><sup>1</sup>,
+              </span>
+              &nbsp;&nbsp;&nbsp;
+              <span class="author-block">
+                <a href="#">Under Review</a><sup>1</sup>
+              </span>
+            </div>
+
+            <div class="is-size-5 publication-authors" style="margin-bottom: 10px;">
+              <span class="author-block" style="margin-right: 10px;"><sup>1</sup>Anonymous Institution,</span>
+              <span class="author-block">ICRA 2025 Submission</span>
+            </div>
+
+            <h1 style="font-size:24px;font-weight:bold">ICRA 2025 Submission</h1>
+
+            <div class="column has-text-centered">
+              <div class="publication-links">
+                <span class="link-block">
+                  <a href="#" class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                    </span>
+                    <span>Paper</span>
+                  </a>
+                </span>
+                <span class="link-block">
+                  <a href="#" class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                      <i class="fab fa-github"></i>
+                    </span>
+                    <span>Code</span>
+                  </a>
+                </span>
+                <span class="link-block">
+                  <a href="#" class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                    </span>
+                    <span>arXiv</span>
+                  </a>
+                </span>
+                <span class="link-block">
+                  <a href="#" class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                      <i class="fas fa-presentation"></i>
+                    </span>
+                    <span>Slides</span>
+                  </a>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <style>
+    #teaser-video {
+      max-width: 85%;
+      margin: 0 auto;
+      display: block;
+      border: none;
+      border-radius: 4px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    }
+    
+    .hero.teaser {
+      padding-top: 0;
+      margin-top: -3rem;
+    }
+    .hero.teaser .hero-body {
+      padding-top: 0;
+    }
+  </style>
+  <section class="hero teaser">
+    <div class="container is-max-desktop">
+      <div class="hero-body">
+        <img src="static/images/pipeline.png" alt="SurgMASt3R-SLAM Pipeline" style="width: 100%; height: auto; display: block;">
+        <h2 class="subtitle" style="text-align: center;"></h2>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top: 1rem;">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column is-full-width has-text-centered">
+          
+          <h2 class="title is-4" style="font-weight: 700;">Abstract</h2>
+          <div class="content has-text-justified">
+            <p>
+              Surgical scene reconstruction is pivotal for applications like intraoperative navigation and robotic surgery, yet existing methods often prioritize depth estimation over holistic 3D reconstruction, limiting global consistency in complex medical environments. We propose SurgMASt3R-SLAM, a novel pipeline for real-time 3D reconstruction of roughly static surgical scenes, leveraging a Vision Transformer-based MASt3R model fine-tuned with Low-rank Adaptation (LoRA) on medical datasets.
+            </p>
+            <p>
+              By integrating careful frame pair selection, our approach addresses challenges such as textureless surfaces. Quantitative evaluations on SimCol and zero-shot testing on C3VD demonstrate that SurgMASt3R-SLAM outperforms state-of-the-art methods in depth estimation, achieving superior metrics and robust local pose estimation.
+            </p>
+            <p>
+              Qualitative results further confirm high-fidelity point clouds with sharp edges. Despite some global trajectory drift, our method's ability to generate accurate, globally consistent reconstructions in real-time validates its potential for advancing surgical visualization and automation.
+            </p>
+          </div>
+          <br>
+
+          <h2 class="title is-4" style="font-weight: 700;">Method</h2>
+          <div class="content has-text-justified">
+            <p>
+              SurgMASt3R-SLAM integrates MASt3R for feature extraction and pointmap matching, combined with tracking, local fusion, loop closure, and global optimization, to enable camera localization and construct a scene map. MASt3R takes two images as input and outputs point maps along with corresponding confidence maps and high-dimensional features for precise registration.
+            </p>
+            <p>
+              To adapt MASt3R for surgical scenes, we employ Low-rank Adaptation (LoRA) to efficiently fine-tune the model. We integrate LoRA adapters into the MLP (feed-forward) layers of the model, with r=8, α=16, and a dropout rate of 0.1. The selection of image pairs is critical - we select frame pairs with a temporal distance of less than 3 frames, applying a sliding window of length 3 across the entire video sequence to ensure MASt3R captures similar features between consecutive frames.
+            </p>
+          </div>
+          <div class="content has-text-centered">
+            <video id="architecture-video" controls autoplay muted loop style="width: 90%; margin: 0 auto; display: block; border: none; border-radius: 0; box-shadow: none;">
+              <source src="videos_compressed/B5.mp4" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+            <p class="has-text-centered" style="margin-top: 10px; font-size: 0.9em; color: #666;">SurgMASt3R-SLAM Reconstruction Demo</p>
+          </div>
+          <br>
+
+          <h2 class="title is-4" style="font-weight: 700;">Experimental Results</h2>
+          <div class="content has-text-justified">
+            <p>
+              We evaluate SurgMASt3R-SLAM on three datasets: <b>SimCol3D</b> (28,776 training frames, 9,009 test frames), <b>C3VD</b> (22 colonic videos with 8 selected for testing), and <b>SCARED</b> dataset. Our method achieves superior depth estimation performance compared to existing approaches.
+            </p>
+          </div>
+          
+          <div class="content has-text-centered">
+            <h3 class="title is-5" style="font-weight: 600; margin-bottom: 1rem;">Quantitative Depth Estimation Results</h3>
+            <div style="overflow-x: auto; margin-bottom: 2rem;">
+              <table class="table is-striped is-hoverable" style="margin: 0 auto; font-size: 0.9rem;">
+                <thead>
+                  <tr style="background-color: #f5f5f5;">
+                    <th rowspan="2" style="vertical-align: middle; text-align: center;">Method</th>
+                    <th rowspan="2" style="vertical-align: middle; text-align: center;">Intrinsics</th>
+                    <th colspan="5" style="text-align: center; border-bottom: 1px solid #ddd;">SimCol3D (Train & Test)</th>
+                    <th colspan="5" style="text-align: center; border-bottom: 1px solid #ddd;">C3VD (Zero-shot)</th>
+                  </tr>
+                  <tr style="background-color: #f8f9fa; font-size: 0.8rem;">
+                    <th>Abs Rel ↓</th>
+                    <th>Sq Rel ↓</th>
+                    <th>RMSE ↓</th>
+                    <th>RMSE log ↓</th>
+                    <th>δ ↑</th>
+                    <th>Abs Rel ↓</th>
+                    <th>Sq Rel ↓</th>
+                    <th>RMSE ↓</th>
+                    <th>RMSE log ↓</th>
+                    <th>δ ↑</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Monodepth2</td>
+                    <td style="text-align: center;">✓</td>
+                    <td>0.212</td>
+                    <td>0.995</td>
+                    <td>1.165</td>
+                    <td>0.243</td>
+                    <td>0.763</td>
+                    <td>0.170</td>
+                    <td>2.317</td>
+                    <td>9.276</td>
+                    <td>0.225</td>
+                    <td>0.769</td>
+                  </tr>
+                  <tr>
+                    <td>Endo-SFM</td>
+                    <td style="text-align: center;">✓</td>
+                    <td>0.200</td>
+                    <td>0.918</td>
+                    <td>1.127</td>
+                    <td>0.238</td>
+                    <td>0.778</td>
+                    <td>0.164</td>
+                    <td>2.232</td>
+                    <td>9.311</td>
+                    <td>0.217</td>
+                    <td>0.770</td>
+                  </tr>
+                  <tr>
+                    <td>Endo3DAC</td>
+                    <td style="text-align: center;">✓</td>
+                    <td><u>0.076</u></td>
+                    <td><u>0.266</u></td>
+                    <td><u>0.555</u></td>
+                    <td>0.101</td>
+                    <td><u>0.957</u></td>
+                    <td>0.083</td>
+                    <td>0.584</td>
+                    <td><u>4.655</u></td>
+                    <td>0.107</td>
+                    <td><u>0.949</u></td>
+                  </tr>
+                  <tr style="background-color: #e8f5e8; font-weight: 600;">
+                    <td><strong>SurgMASt3R-SLAM</strong></td>
+                    <td style="text-align: center;">✓</td>
+                    <td><strong>0.046</strong></td>
+                    <td><strong>0.038</strong></td>
+                    <td><strong>0.343</strong></td>
+                    <td>0.113</td>
+                    <td><strong>0.976</strong></td>
+                    <td><strong>0.083</strong></td>
+                    <td>0.748</td>
+                    <td><strong>3.254</strong></td>
+                    <td>0.839</td>
+                    <td><strong>0.953</strong></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p style="font-size: 0.85rem; color: #666; text-align: center;">
+              <strong>Bold</strong> indicates best performance, <u>underlined</u> indicates second-best performance. 
+              ↓ indicates lower is better, ↑ indicates higher is better.
+            </p>
+          </div>
+
+          <div class="content has-text-centered">
+            <h3 class="title is-5" style="font-weight: 600; margin-bottom: 1rem;">MASt3R Architecture with LoRA Adaptation</h3>
+            <img src="static/images/MASt3R.png" alt="MASt3R Architecture" style="width: 100%; margin-bottom: 2rem;">
+            <p style="font-size: 0.9rem; color: #666; margin-bottom: 2rem;">The structure of MASt3R with LoRA adaptor on the MLP layers of the encoder and decoder</p>
+
+            <h3 class="title is-5" style="font-weight: 600; margin-bottom: 1rem;">Qualitative Results</h3>
+            <div class="thumbnail-container">
+              <img src="static/images/Depth.png" alt="Depth Estimation Results">
+              <img src="static/images/reconstruction.png" alt="3D Reconstruction Results">
+              <img src="static/images/pose.png" alt="Camera Pose Estimation">
+            </div>
+          </div>  
+          <br>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Video Gallery -->
+  <section class="section">
+    <div class="container is-max-desktop">
+      <h2 class="title is-3 has-text-centered">Video Gallery</h2>
+      <p class="has-text-centered" style="margin-bottom: 2em;">Surgical scene reconstruction results across different scenarios</p>
+
+      <div class="columns is-multiline">
+        <!-- B5 Video -->
+        <div class="column is-4">
+          <div class="video-wrapper">
+            <video controls muted style="width: 100%; border: 1px solid #ddd; border-radius: 4px;">
+              <source src="videos_compressed/B5.mp4" type="video/mp4">
+            </video>
+            <p class="has-text-centered" style="margin-top: 8px; font-size: 0.9em;">Scenario B5</p>
+          </div>
+        </div>
+
+        <!-- B10 Video -->
+        <div class="column is-4">
+          <div class="video-wrapper">
+            <video controls muted style="width: 100%; border: 1px solid #ddd; border-radius: 4px;">
+              <source src="videos_compressed/B10.mp4" type="video/mp4">
+            </video>
+            <p class="has-text-centered" style="margin-top: 8px; font-size: 0.9em;">Scenario B10</p>
+          </div>
+        </div>
+
+        <!-- B15 Video -->
+        <div class="column is-4">
+          <div class="video-wrapper">
+            <video controls muted style="width: 100%; border: 1px solid #ddd; border-radius: 4px;">
+              <source src="videos_compressed/B15.mp4" type="video/mp4">
+            </video>
+            <p class="has-text-centered" style="margin-top: 8px; font-size: 0.9em;">Scenario B15</p>
+          </div>
+        </div>
+
+        <!-- S5 Video -->
+        <div class="column is-4">
+          <div class="video-wrapper">
+            <video controls muted style="width: 100%; border: 1px solid #ddd; border-radius: 4px;">
+              <source src="videos_compressed/S5.mp4" type="video/mp4">
+            </video>
+            <p class="has-text-centered" style="margin-top: 8px; font-size: 0.9em;">Scenario S5</p>
+          </div>
+        </div>
+
+        <!-- S10 Video -->
+        <div class="column is-4">
+          <div class="video-wrapper">
+            <video controls muted style="width: 100%; border: 1px solid #ddd; border-radius: 4px;">
+              <source src="videos_compressed/S10.mp4" type="video/mp4">
+            </video>
+            <p class="has-text-centered" style="margin-top: 8px; font-size: 0.9em;">Scenario S10</p>
+          </div>
+        </div>
+
+        <!-- S15 Video -->
+        <div class="column is-4">
+          <div class="video-wrapper">
+            <video controls muted style="width: 100%; border: 1px solid #ddd; border-radius: 4px;">
+              <source src="videos_compressed/S15.mp4" type="video/mp4">
+            </video>
+            <p class="has-text-centered" style="margin-top: 8px; font-size: 0.9em;">Scenario S15</p>
+          </div>
+        </div>
+
+        <!-- O1 Video -->
+        <div class="column is-4">
+          <div class="video-wrapper">
+            <video controls muted style="width: 100%; border: 1px solid #ddd; border-radius: 4px;">
+              <source src="videos_compressed/O1.mp4" type="video/mp4">
+            </video>
+            <p class="has-text-centered" style="margin-top: 8px; font-size: 0.9em;">Scenario O1</p>
+          </div>
+        </div>
+
+        <!-- O2 Video -->
+        <div class="column is-4">
+          <div class="video-wrapper">
+            <video controls muted style="width: 100%; border: 1px solid #ddd; border-radius: 4px;">
+              <source src="videos_compressed/O2.mp4" type="video/mp4">
+            </video>
+            <p class="has-text-centered" style="margin-top: 8px; font-size: 0.9em;">Scenario O2</p>
+          </div>
+        </div>
+
+        <!-- O3 Video -->
+        <div class="column is-4">
+          <div class="video-wrapper">
+            <video controls muted style="width: 100%; border: 1px solid #ddd; border-radius: 4px;">
+              <source src="videos_compressed/O3.mp4" type="video/mp4">
+            </video>
+            <p class="has-text-centered" style="margin-top: 8px; font-size: 0.9em;">Scenario O3</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- End Video Gallery -->
+
+  <section class="section" id="BibTeX">
+    <div class="container is-max-desktop content">
+      <h2 class="title is-4" style="font-weight: 700;">BibTeX</h2>
+      <pre><code>@inproceedings{surgmast3rslam2025,
+  title={SurgMASt3R-SLAM: Real-Time 3D Reconstruction for Surgical Scenes via LoRA-Fine-Tuned Vision Transformers},
+  author={Anonymous Authors},
+  booktitle={Proceedings of the IEEE International Conference on Robotics and Automation (ICRA)},
+  year={2025}
+}</code></pre>
+    </div>
+  </section>
+
+
+  <footer class="footer">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+
+          <p>
+            This page was built using the <a href="https://github.com/eliahuhorwitz/Academic-project-page-template" target="_blank">Academic Project Page Template</a> which was adopted from the <a href="https://nerfies.github.io" target="_blank">Nerfies</a> project page.
+            You are free to borrow the source code of this website, we just ask that you link back to this page in the footer. <br> This website is licensed under a <a rel="license"  href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank">Creative
+            Commons Attribution-ShareAlike 4.0 International License</a>.
+          </p>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- Statcounter tracking code -->
+  
+<!-- You can add a tracker to track page visits by creating an account at statcounter.com -->
+
+    <!-- End of Statcounter Code -->
+
+  </body>
+  </html>
