@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   
   <!-- Primary Meta Tags -->
-  <meta name="title" content="SurgMASt3R-SLAM: Real-Time 3D Reconstruction for Surgical Scenes via LoRA-Fine-Tuned Vision Transformers">
+  <meta name="title" content="SurgMASt3R-SLAM: Robust Real-Time Surgical Scene Reconstruction via Adaptation of a 3D Foundation Model">
   <meta name="description" content="Novel pipeline that adapts a 3D foundation model MASt3R for surgical scene mapping, addressing photometric consistency violations in textureless biological tissues through LoRA fine-tuning.">
   <meta name="keywords" content="3D Reconstruction, depth estimation, LoRA, surgical scene, medical SLAM, MASt3R, Vision Transformers, ICRA 2025">
   <meta name="author" content="Anonymous Authors">
@@ -68,7 +68,7 @@
   <link rel="preconnect" href="https://cdn.jsdelivr.net">
 
 
-  <title>SurgMASt3R-SLAM: Surgical Scene Reconstruction using Foundation Model-based SLAM | ICRA 2025</title>
+  <title>SurgMASt3R-SLAM: Robust Real-Time Surgical Scene Reconstruction via Adaptation of a 3D Foundation Model | ICRA 2025</title>
   
   
   <!-- Critical CSS - Load synchronously -->
@@ -165,7 +165,7 @@
       <div class="container is-max-desktop">
         <div class="columns is-centered">
           <div class="column has-text-centered">
-            <h1 class="title is-4 publication-title" style="font-size: 2rem;">SurgMASt3R-SLAM: Real-Time 3D Reconstruction for Surgical Scenes via LoRA-Fine-Tuned Vision Transformers</h1>
+            <h1 class="title is-4 publication-title" style="font-size: 2rem;">SurgMASt3R-SLAM: Robust Real-Time Surgical Scene Reconstruction via Adaptation of a 3D Foundation Model</h1>
             <div class="is-size-5 publication-authors">
               <span class="author-block">
                 <a href="#">Anonymous Authors</a><sup>1</sup>,
@@ -248,7 +248,7 @@
     <div class="container is-max-desktop">
       <div class="hero-body">
         <img src="static/images/pipeline.png" alt="SurgMASt3R-SLAM Pipeline" style="width: 100%; height: auto; display: block;">
-        <h2 class="subtitle" style="text-align: center;"></h2>
+        <h2 class="subtitle" style="text-align: center; margin-top: 1rem; font-size: 0.9rem; color: #666;">SurgMASt3R-SLAM Pipeline. MASt3R is first fine-tuned on the SimCol dataset using LoRA and temporal sampling to adapt to textureless surgical scenes. The adapted model is then deployed in SurgMASt3R-SLAM to process surgical videos, producing 3D point clouds and camera poses for all keyframes in real time.</h2>
       </div>
     </div>
   </section>
@@ -264,10 +264,10 @@
               Surgical scene reconstruction is crucial for applications such as intraoperative navigation and robotic surgery. Most existing methods rely on self-supervised depth estimation via photometric consistency assumption. However, they perform poorly on smooth, textureless biological tissues due to violations of this assumption caused by illumination changes and non-Lambertian reflectance.
             </p>
             <p>
-              To address this problem, we propose SurgMASt3R-SLAM, a novel pipeline that adapts a 3D foundation model, MASt3R, for surgical scene mapping. SurgMASt3R-SLAM leverages low-rank adaptation to efficiently finetune MASt3R while reserves the generalization ability for zero-shot reconstruction on unseen data, especially on non-Lambertian surfaces of biological tissues.
+              To address this problem, we propose SurgMASt3R-SLAM, a novel pipeline that adapts a 3D foundation model, MASt3R, for surgical scene mapping. SurgMASt3R-SLAM leverages low-rank adaptation to efficiently finetune MASt3R while reserves the generalization ability for zero-shot reconstruction on unseen data, especially on non-Lambertion surfaces of biological tissues.
             </p>
             <p>
-              To improve fine-tuning efficiency, we propose to select frame-pairs in sliding windows to ensure sufficient visual overlap, addressing the challenge of limited field-of-view and frequent occlusions in surgical scenes that otherwise lead to ambiguous structural cues and hinder model learning. Moreover, SurgMASt3R-SLAM runs at 10 FPS by combining with a SLAM system. Experimental results on SimCol3D and zero-shot testing on C3VD and SCARED datasets show that SurgMASt3R-SLAM achieves competitive performance in depth estimation, pose estimation and 3D reconstruction.
+              To improve fine-tuning efficiency, we propose to select frame pairs in sliding windows to ensure sufficient visual overlap, addressing the challenge of limited field-of-view and frequent occlusions in surgical scenes that otherwise lead to ambiguous structural cues and hinder model learning. Moreover, SurgMASt3R-SLAM runs at 10 FPS by combining with a SLAM system. Experimental results on SimCol and zero-shot testing on C3VD and SCARED datasets show that SurgMASt3R-SLAM achieves competitive performance in depth estimation, pose estimation and 3D reconstruction.
             </p>
           </div>
           <br>
@@ -275,10 +275,16 @@
           <h2 class="title is-4" style="font-weight: 700;">Method</h2>
           <div class="content has-text-justified">
             <p>
+              We introduce SurgMASt3R-SLAM, a system for real-time 3D reconstruction of static surgical scenes that addresses key challenges such as textureless surfaces and illumination variation. Our approach integrates a surgically adapted MASt3R, fine-tuned via Low-Rank Adaptation (LoRA) on medical data within a SLAM framework to process extended surgical videos efficiently.
+            </p>
+            <p>
               SurgMASt3R-SLAM integrates MASt3R for feature extraction and pointmap matching, combined with tracking, local fusion, loop closure, and global optimization, to enable camera localization and construct a scene map. MASt3R takes two images as input and outputs point maps along with corresponding confidence maps and high-dimensional features for precise registration.
             </p>
             <p>
-              To adapt MASt3R for surgical scenes, we employ Low-rank Adaptation (LoRA) to efficiently fine-tune the model. We integrate LoRA adapters into the MLP (feed-forward) layers of the model, with r=8, α=16, and a dropout rate of 0.1. The selection of image pairs is critical - we select frame pairs with a temporal distance of less than 3 frames, applying a sliding window of length 3 across the entire video sequence to ensure MASt3R captures similar features between consecutive frames.
+              To adapt MASt3R for surgical scenes, we employ Low-rank Adaptation (LoRA) to efficiently fine-tune the model. We integrate LoRA adapters into the MLP (feed-forward) layers of the encoders and decoders, with r=8, α=16, and a dropout rate of 0.1. We also unfreeze the position embedding and decoder embedding modules for learning the medical image pattern.
+            </p>
+            <p>
+              For strategic image pair selection, we employ a window length of 3 and a step size of 1 to generate candidate sequences. From these sequences, a single window is randomly sampled per training iteration, ensuring sufficient visual overlap between training image pairs and leveraging the inherent temporal coherence of surgical video.
             </p>
           </div>
           <div class="content has-text-centered">
@@ -293,7 +299,10 @@
           <h2 class="title is-4" style="font-weight: 700;">Experimental Results</h2>
           <div class="content has-text-justified">
             <p>
-              We evaluate SurgMASt3R-SLAM on three datasets: <b>SimCol3D</b> (28,776 training frames, 9,009 test frames), <b>C3VD</b> (22 colonic videos with 8 selected for testing), and <b>SCARED</b> dataset. Our method achieves superior depth estimation performance compared to existing approaches.
+              We evaluate SurgMASt3R-SLAM on three datasets: <b>SimCol</b> (28,776 training frames, 9,009 test frames), <b>C3VD</b> (22 colonic videos with 8 selected for testing), and <b>SCARED</b> dataset. With intrinsics, SurgMASt3R-SLAM achieves superior depth estimation performance on both SimCol (train and test) and C3VD (zero-shot test) datasets, outperforming other methods across most metrics.
+            </p>
+            <p>
+              Our method achieves Abs Rel of 0.046 on SimCol and 0.083 on C3VD, demonstrating robust performance in both controlled and unseen settings. The system operates at approximately 10 FPS, delivering high-fidelity 3D reconstructions in real time for practical deployment in surgical environments.
             </p>
           </div>
           
@@ -389,8 +398,8 @@
 
           <div class="content has-text-centered">
             <h3 class="title is-5" style="font-weight: 600; margin-bottom: 1rem;">MASt3R Architecture with LoRA Adaptation</h3>
-            <img src="static/images/MASt3R.png" alt="MASt3R Architecture" style="width: 100%; margin-bottom: 2rem;">
-            <p style="font-size: 0.9rem; color: #666; margin-bottom: 2rem;">The structure of MASt3R with LoRA adaptor on the MLP layers of the encoder and decoder</p>
+            <img src="static/images/MASt3R2.png" alt="MASt3R Architecture" style="width: 100%; margin-bottom: 2rem;">
+            <p style="font-size: 0.9rem; color: #666; margin-bottom: 2rem;">MASt3R architecture fine-tuned with LoRA on MLP layers and strategic image pair selection.</p>
 
             <h3 class="title is-5" style="font-weight: 600; margin-bottom: 1rem;">Qualitative Results</h3>
             <div class="thumbnail-container">
@@ -511,7 +520,7 @@
     <div class="container is-max-desktop content">
       <h2 class="title is-4" style="font-weight: 700;">BibTeX</h2>
       <pre><code>@inproceedings{surgmast3rslam2025,
-  title={SurgMASt3R-SLAM: Real-Time 3D Reconstruction for Surgical Scenes via LoRA-Fine-Tuned Vision Transformers},
+  title={SurgMASt3R-SLAM: Robust Real-Time Surgical Scene Reconstruction via Adaptation of a 3D Foundation Model},
   author={Anonymous Authors},
   booktitle={Proceedings of the IEEE International Conference on Robotics and Automation (ICRA)},
   year={2025}
